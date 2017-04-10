@@ -1,0 +1,15 @@
+.container{
+padding-top:15px;
+}
+.message {
+padding-right:5px !important;
+padding-left:5px !important;
+}
+.username {
+color:#0016fe;
+font-style:italic
+}
+.error{
+color:red;
+border-color:red !important;
+}
