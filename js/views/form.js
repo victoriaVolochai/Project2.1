@@ -25,7 +25,6 @@ var FormView=Backbone.View.extend({
 	},
 	displayErrors: function(){
 		_.each(this.model.validationError, function(value, field){
-		console.log(this);
 			this.$el.find('#'+ field).next().text(value); 
 			this.$el.find('#'+ field).addClass('error');
 		}, this);
@@ -40,7 +39,6 @@ var FormView=Backbone.View.extend({
 		var options={validate: true}
 		if(_.keys(attributes).length==1){
 			options["attributeForValidation"]= _.keys(attributes)[0];
-			console.log(options);
 		}
 		this.model.set(attributes, options);
 		if(this.model.validationError){
@@ -55,7 +53,6 @@ var FormView=Backbone.View.extend({
 		this.validation(field);
 	},
 	submit: function(e){
-		//предотвращаем действия по умолчанию, форма не отправляет на сервер данные и не обновляет страницу
 		e.preventDefault();
 		this.validation(this.allFieldsValue());
 		if(this.model.validationError){
@@ -72,12 +69,3 @@ var FormView=Backbone.View.extend({
 	
 	return FormView;
 });
-/* Валидация валидация по сабмиту пишем в обработчик сабмита
-this.model.set(this.newAttributes());
-		if(!this.model.isValid()){
-		console.log(this.model.validationError);
-		console.log(this.model.username);
-		console.log(this.model.messageText);
-		this.displayErrors();
-		return;
-	}*/
