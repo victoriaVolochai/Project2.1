@@ -7,30 +7,31 @@ define([
 	'use strict';
 	
 var MessagesView=Backbone.View.extend({
-	el:'#chatWrap',
+	el:'.chat__messages',
 	events: {
-		'click #remove': 'remove'
+		'click .chat__messages-remove-button': 'remove'
 	},
 	initialize: function() {
-		this.$chat=this.$el.children().first().children();
+		this.$messagesContainer = this.$el.find('.chat__messages-container');
+		this.$messagesCounter = this.$el.find('.chat__messages-counter');
 		this.listenTo(this.collection, 'add', this.addOne);
 		this.listenTo(this.collection, 'add', this.countMessages);
 	},
 	addOne: function(message) {
-		var messageView= new MessageView ({ model: message});
-		this.$chat.first().append(messageView.render().el);
+		var messageView = new MessageView ({ model: message});
+		this.$messagesContainer.append(messageView.render().el);
 	},
 	countMessages: function(){
 		var messageAmount=this.collection.length;
-		this.$chat.last().html("Всего сообщений: "+ messageAmount);
+		this.$messagesCounter.html("Всего сообщений: "+ messageAmount);
 	},
 	render: function() {
-		this.collection.each(this.addOne, this);//!!!!! НЕ ПОНЯТНО КАК РАБОТАЕТ
+		this.collection.each(this.addOne, this);
 		return this;
 	},
 	remove: function(){
 		this.collection.remove(this.collection.models);
-		this.$chat.first().empty();
+		this.$messagesContainer.empty();
 		this.countMessages();
 	}
 	});

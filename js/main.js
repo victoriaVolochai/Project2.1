@@ -1,10 +1,7 @@
 
 'use strict';
 
-// Require.js allows us to configure shortcut alias
 require.config({
-	// The shim config allows us to configure dependencies for
-	// scripts that do not call define() to register a module
 	shim: {
 		underscore: {
 			exports: '_'
@@ -35,9 +32,8 @@ require([
 	'collections/messages',
 	'views/form',
 	'views/messages'
-], function (Backbone, MeessageModel, messagesCollection, FormView, MessagesView) {
-	// Initialize the application view
-	var message= new MeessageModel();
+], function (Backbone, MessageModel, messagesCollection, FormView, MessagesView) {
+	var message= new MessageModel();
 	new MessagesView({
 	collection: messagesCollection});
 	new FormView({

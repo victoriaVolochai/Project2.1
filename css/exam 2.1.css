@@ -1,9 +1,8 @@
 .container{
 padding-top:15px;
 }
-.message {
-padding-right:5px !important;
-padding-left:5px !important;
+.chat_heading{
+    font-style: italic;
 }
 .username {
 color:#0016fe;
@@ -12,4 +11,47 @@ font-style:italic
 .error{
 color:red;
 border-color:red !important;
+}
+@media (max-width:767px){
+.message__time{
+    padding-top: 10px;
+}
+}
+@media (max-width:991px){
+.form__container{
+    margin-top:15px;
+}
+}
+.message__text{
+    text-align: justify;
+    word-wrap: break-word;  
+}
+.message__time{
+    text-align: right;  
+}
+@media (min-width:768px){
+.message__time{
+    text-align: right;
+    width:90px;
+    float: left;
+}
+.message__text{
+    float:left;
+    padding-right:15px;
+}
+}
+@media (min-width:768px) and (max-width:992px) {
+.message__text{
+    width:546px;
+}   
+} 
+@media (min-width:992px) and (max-width:1200px) {
+    .message__text{
+        width:297px;
+    }   
+} 
+@media (min-width:1200px){
+    .message__text{
+        width:397px;
+    }   
 }

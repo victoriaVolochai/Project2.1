@@ -8,15 +8,13 @@ define([
 
 
 var FormView=Backbone.View.extend({
-	el: '#chatForm',
+	el: '.chat__form',
 	events : {
 	'submit': 'submit',
-	'blur .form-control': 'blurFieldValue',
-	'focus .form-control': 'clearErrors'
+	'blur .form-control': 'validateBlurFieldValue',
+	'focus .form-control': 'clearError'
 	},
-	initialize: function(){
-	},
-	allFieldsValue: function() {
+	getAllFieldsValue: function() {
 		var values={};
 		this.$el.find('.form-control').each(function(){
 		values[$(this).attr("id")]=$(this).val();
@@ -30,35 +28,35 @@ var FormView=Backbone.View.extend({
 		}, this);
 	
 	},
-	clearErrors:function(e){
+	clearError:function(e){
 		var field=$(e.target).attr("id");
 		this.$el.find('#'+ field).next().text(""); 
 		this.$el.find('#'+ field).removeClass('error');
 	},
-	validation: function(attributes) {
+	sendForValidation: function(attributes) {
 		var options={validate: true}
 		if(_.keys(attributes).length==1){
-			options["attributeForValidation"]= _.keys(attributes)[0];
+			options["oneAttributeForValidation"]= _.keys(attributes)[0];
 		}
 		this.model.set(attributes, options);
 		if(this.model.validationError){
 			this.displayErrors();
 		}
 	},	
-	blurFieldValue: function(e) {
+	validateBlurFieldValue: function(e) {
 		var attr=$(e.target).attr("id");
 		var value=$(e.target).val();
 		var field={};
 		field[attr]=value;
-		this.validation(field);
+		this.sendForValidation(field);
 	},
 	submit: function(e){
 		e.preventDefault();
-		this.validation(this.allFieldsValue());
+		this.sendForValidation(this.getAllFieldsValue());
 		if(this.model.validationError){
 		return;
 		}else{
-		this.model.set('date', new Date().toLocaleTimeString());
+		this.model.set('date', new Date().toLocaleTimeString('en-US'));
 		Backbone.trigger('addNewMessage', this.model);
 		this.model=new MessageModel();
 		this.$el.trigger('reset');

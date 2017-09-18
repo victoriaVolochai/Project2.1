@@ -8,11 +8,10 @@ define([
 
 var MessageView = Backbone.View.extend({
 	tagName:'div',
-	className: 'well well-sm clearfix', 
+	className: 'message well well-sm clearfix', 
+	messageTemplate: _.template('<div class="message__text"> <span class="username"><%= username %></span>:<%= message %></div> <div class=" message__time"><%= date %></div>'),
 	render: function() {
-		this.$el.html('<span class="col-sm-9 message"> <span class="username">' + this.model.get('username') +
-		'</span>: ' + this.model.get('message') + '</span> <span class="col-sm-3 pull-right message"> ' + 
-		this.model.get('date') +' </span>');
+		this.$el.html(this.messageTemplate(this.model.toJSON()));
 		return this;
 	}	
 });

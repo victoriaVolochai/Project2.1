@@ -7,20 +7,20 @@ define(['underscore',
 var MessageModel=Backbone.Model.extend({
 	validate: function(attrs, options){
 		var errors={};
-		var attributes=[];
-		if(_.has(options, 'attributeForValidation')){
-		attributes.push(options['attributeForValidation']);
+		var attributesForValidation=[];
+		if(_.has(options, 'oneAttributeForValidation')){
+		attributesForValidation.push(options['oneAttributeForValidation']);
 		}else{
-		attributes=_.keys(attrs)
+		attributesForValidation=_.keys(attrs)
 		}
-		_.each(attributes, function(attribute){
+		_.each(attributesForValidation, function(attribute){
 		if(! attrs[attribute]) {
 		 	errors[attribute] = attribute +' is required';
 		 }
 		 });
-		 if(!_.isEmpty(errors)){
-		 	return errors;
-		 	}
+		if(!_.isEmpty(errors)){
+			return errors;
+		}
 		},
 	
 	});
